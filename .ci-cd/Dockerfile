@@ -4,7 +4,6 @@ RUN apk add --no-cache npm
 
 COPY . /mmi-game
 WORKDIR /mmi-game
-RUN rm -rf .ci-cd
 
 RUN npm install
 RUN npm run build
