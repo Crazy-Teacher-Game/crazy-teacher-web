@@ -12,6 +12,7 @@ import {
   Instagram,
   Youtube,
   Monitor,
+  Medal,
 } from "lucide-react";
 
 import styles from "./index.module.css";
@@ -50,6 +51,9 @@ export default function Home() {
   const { siteConfig } = useDocusaurusContext();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [leaderboardData, setLeaderboardData] = useState([]);
+  const [leaderboardFilter, setLeaderboardFilter] = useState("all");
+  const [leaderboardExpanded, setLeaderboardExpanded] = useState(false);
   const observerRefs = useRef([]);
 
   const addToRefs = useCallback((el) => {
@@ -90,6 +94,66 @@ export default function Home() {
 
     return () => observer.disconnect();
   }, []);
+
+  const sectionRefs = useRef({});
+
+  useEffect(() => {
+    const fetchLeaderboard = () => {
+      fetch(`${siteConfig.customFields.apiUrl}/leaderboard`)
+        .then((response) => response.json())
+        .then((data) => setLeaderboardData(data))
+        .catch((error) => console.error(error));
+    };
+
+    fetchLeaderboard();
+    const interval = setInterval(fetchLeaderboard, 10000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const formatDate = (dateString) => {
+    const options = { day: "2-digit", month: "2-digit", year: "numeric" };
+    return new Date(dateString).toLocaleDateString("fr-FR", options);
+  };
+
+  const filteredLeaderboard = leaderboardData.filter((entry) => {
+    if (leaderboardFilter === "all") return true;
+    if (!entry.date) return false;
+    const entryDate = new Date(entry.date);
+    const now = new Date();
+    if (leaderboardFilter === "day") {
+      return entryDate.toDateString() === now.toDateString();
+    }
+    if (leaderboardFilter === "week") {
+      const weekAgo = new Date(now);
+      weekAgo.setDate(now.getDate() - 7);
+      return entryDate >= weekAgo;
+    }
+    const monthAgo = new Date(now);
+    monthAgo.setMonth(now.getMonth() - 1);
+    return entryDate >= monthAgo;
+  });
+
+  const useIntersectionObserver = (threshold = 0.2) => {
+    const [isIntersecting, setIsIntersecting] = useState(false);
+    const ref = useRef(null);
+
+    useEffect(() => {
+      const node = ref.current;
+      if (!node) return;
+
+      const observer = new IntersectionObserver(
+        ([entry]) => setIsIntersecting(entry.isIntersecting),
+        { threshold },
+      );
+      observer.observe(node);
+      return () => observer.unobserve(node);
+    }, [threshold]);
+
+    return [ref, isIntersecting];
+  };
+
+  const [leaderboardRef, leaderboardVisible] = useIntersectionObserver(0.2);
+  const [awardsRef, awardsVisible] = useIntersectionObserver(0.2);
 
   const navLinks = [
     /*     { href: "#gameplay", label: "Gameplay" },
@@ -321,6 +385,92 @@ export default function Home() {
                   }}
                 />
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ===== LEADERBOARD ===== */}
+        <section
+          id="leaderboard"
+          className={styles.leaderboardSection}
+          ref={(el) => (sectionRefs.current.leaderboard = el)}
+        >
+          <div className={styles.leaderboardContainer}>
+            <div className={styles.leaderboardHeader}>
+              <h2 className={styles.leaderboardTitle}>HALL OF FAME</h2>
+              <p className={styles.leaderboardSubtitle}>
+                Les meilleurs survivants du trimestre
+              </p>
+            </div>
+
+            <div className={styles.leaderboardFilters}>
+              {[
+                { key: "day", label: "Aujourd'hui" },
+                { key: "week", label: "Semaine" },
+                { key: "month", label: "Mois" },
+                { key: "all", label: "Tous" },
+              ].map(({ key, label }) => (
+                <button
+                  key={key}
+                  className={`${styles.leaderboardFilterBtn} ${leaderboardFilter === key ? styles.leaderboardFilterActive : ""}`}
+                  onClick={() => { setLeaderboardFilter(key); setLeaderboardExpanded(false); }}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+
+            <div
+              ref={addToRefs}
+              className={`${styles.revealHidden} ${styles.leaderboardCard}`}
+            >
+              <div className={styles.leaderboardTableHeader}>
+                <div className={styles.leaderboardColRank}>#</div>
+                <div className={styles.leaderboardColName}>ÉLÈVE</div>
+                <div className={styles.leaderboardColScore}>SCORE</div>
+                <div className={styles.leaderboardColDate}>DATE</div>
+              </div>
+
+              <div className={styles.leaderboardRows}>
+                {(leaderboardExpanded
+                  ? filteredLeaderboard
+                  : filteredLeaderboard.slice(0, 5)
+                ).map((entry, index) => {
+                  let rowVariant = "";
+                  if (index === 0) rowVariant = styles.leaderboardRowGold;
+                  else if (index === 1) rowVariant = styles.leaderboardRowSilver;
+                  else if (index === 2) rowVariant = styles.leaderboardRowBronze;
+
+                  return (
+                    <div
+                      key={index}
+                      className={`${styles.leaderboardRow} ${rowVariant}`}
+                    >
+                      <div className={styles.leaderboardRowRank}>
+                        {index === 0 ? <Medal size={40} /> : `${index + 1}.`}
+                      </div>
+                      <div className={styles.leaderboardRowName}>
+                        {entry.name}
+                      </div>
+                      <div className={styles.leaderboardRowScore}>
+                        {entry.score}
+                      </div>
+                      <div className={styles.leaderboardRowDate}>
+                        {formatDate(entry.date)}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {filteredLeaderboard.length > 5 && (
+                <button
+                  className={styles.leaderboardShowMore}
+                  onClick={() => setLeaderboardExpanded(!leaderboardExpanded)}
+                >
+                  {leaderboardExpanded ? "Voir moins" : "Voir plus"}
+                </button>
+              )}
             </div>
           </div>
         </section>
