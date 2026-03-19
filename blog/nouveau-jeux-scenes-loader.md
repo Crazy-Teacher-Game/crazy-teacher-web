@@ -1,6 +1,7 @@
 ---
 title: Nouveaux prototypes et Création d'un Scène Loader
 authors: [valentin, audric, gabriel, marius]
+date: 2025-12-04
 ---
 
 ## Valentin
