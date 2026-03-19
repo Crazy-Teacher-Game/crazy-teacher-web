@@ -341,15 +341,16 @@ export default function Home() {
                   style={{ transitionDelay: `${index * 150}ms` }}
                 >
                   <div className={styles.polaroidImageWrapper}>
-                    <div className={styles.polaroidOverlay}>
+                    {/*                     <div className={styles.polaroidOverlay}>
                       <span className={styles.polaroidOverlayText}>
                         Agrandir
                       </span>
-                    </div>
-                    <span className={styles.polaroidPlaceholder}>
-                      Capture d'écran du jeu {item}
-                    </span>
-                    {/* <img src={`/img/screenshot_${item}.png`} alt={`Capture du jeu ${item}`} className={styles.polaroidImg} /> */}
+                    </div> */}
+                    <img
+                      src={`/img/screen${item}.png`}
+                      alt={`Capture du jeu ${item}`}
+                      className={styles.polaroidImg}
+                    />
                   </div>
                 </div>
               ))}
@@ -408,8 +409,9 @@ export default function Home() {
           >
             <h2 className={styles.footerTitle}>20/20 minimum</h2>
             <p className={styles.footerDescription}>
-              Marius Nogueron, Gabriel Maillard, Audric Fullhardt, Valentin
-              Beauget
+              Marius NOGUERON, Gabriel MAILLARD
+              <br />
+              Audric FULLHARDT, Valentin BEAUGET
             </p>
 
             <div className={styles.footerActions}>
