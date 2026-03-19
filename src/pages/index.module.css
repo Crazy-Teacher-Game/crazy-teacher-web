@@ -1,23 +1,1114 @@
-/**
- * CSS files with the .module.css suffix will be treated as CSS modules
- * and scoped locally.
- */
+/* =============================================
+   KEYFRAMES
+   ============================================= */
 
-.heroBanner {
-  padding: 4rem 0;
+@keyframes marqueeScroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes marqueeScrollReverse {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes bounceY {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-12deg);
+  }
+  50% {
+    transform: translateY(-12px) rotate(-12deg);
+  }
+}
+
+@keyframes pulseSize {
+  0%,
+  100% {
+    transform: scale(0.8);
+  }
+  50% {
+    transform: scale(0.9);
+  }
+}
+
+/* =============================================
+   ROOT
+   ============================================= */
+
+.homepageRoot {
+  min-height: 100vh;
+  background-color: #eff6ff;
+  font-family: "Nunito", sans-serif;
+  overflow-x: hidden;
+}
+
+.homepageRoot ::selection {
+  background-color: #facc15;
+  color: #000;
+}
+
+/* =============================================
+   REVEAL ANIMATION
+   ============================================= */
+
+.revealHidden {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.revealVisible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =============================================
+   CUSTOM NAVBAR
+   ============================================= */
+
+.navbar {
+  position: fixed;
+  width: 100%;
+  z-index: 50;
+  transition: padding 300ms;
+  padding: 1.5rem 0;
+}
+
+.navbarScrolled {
+  padding: 0.5rem 0;
+}
+
+.navbarContainer {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.navbarInner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  border: 4px solid #000;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  transition: box-shadow 300ms;
+  box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 1);
+}
+
+.navbarInnerScrolled {
+  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+}
+
+.navbarBrand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.navbarLogoBox {
+  width: 3rem;
+  height: 3rem;
+  background: #3b82f6;
+  border: 2px solid #000;
+  border-radius: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(-6deg);
+}
+
+.navbarLogoText {
+  font-family: "Bangers", cursive;
+  letter-spacing: 2px;
+  color: #fff;
+  font-size: 1.5rem;
+}
+
+.navbarTitle {
+  font-weight: 900;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: -0.025em;
+  color: #000;
+}
+
+.navbarLinks {
+  display: none;
+  align-items: center;
+  gap: 1.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #000;
+}
+
+.navbarLinks a {
+  color: inherit;
+  text-decoration: none;
+  transition:
+    transform 200ms,
+    color 200ms;
+}
+
+.navbarLinks a:hover {
+  color: #2563eb;
+  transform: translateY(-2px);
+}
+
+.navbarBlogBtn {
+  background: #facc15;
+  border: 2px solid #000;
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.25rem;
+  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+  transition: all 200ms;
+  color: #000;
+  text-decoration: none;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.navbarBlogBtn:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px 0px rgba(0, 0, 0, 1);
+  color: #000;
+}
+
+.navbarGithub {
+  display: flex;
+  align-items: center;
+  color: #000;
+  transition: color 200ms;
+}
+
+.navbarGithub:hover {
+  color: #2563eb;
+}
+
+/* Mobile hamburger */
+.navbarHamburger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: 2px solid #000;
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+.navbarMobileMenu {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  background: #fff;
+  border: 4px solid #000;
+  border-radius: 0.75rem;
+  margin-top: 0.5rem;
+  box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 1);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.navbarMobileMenu a {
+  color: #000;
+  text-decoration: none;
+  padding: 0.5rem 0;
+  border-bottom: 2px solid #eee;
+}
+
+.navbarMobileMenu a:last-child {
+  border-bottom: none;
+}
+
+@media (min-width: 768px) {
+  .navbarLinks {
+    display: flex;
+  }
+  .navbarHamburger {
+    display: none;
+  }
+}
+
+/* =============================================
+   HERO SECTION
+   ============================================= */
+
+.heroSection {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding-top: 6rem;
+  background: url("/img/homepage.png") center center / cover no-repeat;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: #000;
+  opacity: 0.1;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 10;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  max-width: 64rem;
+  width: 100%;
+  min-height: calc(100vh - 6rem);
+  margin: 0 auto;
+  padding: 0 0rem 12rem;
+}
+
+.heroBadgeNew {
+  position: absolute;
+  top: 8rem;
+  left: 1rem;
+  transform: rotate(-12deg);
+  background: #fff;
+  border: 4px solid #000;
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.75rem;
+  box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 1);
+  animation: bounceY 1s ease-in-out infinite;
+}
+
+.heroBadgeNewText {
+  font-weight: 900;
+  color: #2563eb;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+}
+
+.heroTitle {
+  font-family: "Bangers", cursive;
+  letter-spacing: 2px;
+  font-size: 4.5rem;
+  color: #fff;
+  text-shadow:
+    8px 8px 0px #000,
+    -2px -2px 0 #000,
+    2px -2px 0 #000,
+    -2px 2px 0 #000,
+    2px 2px 0 #000;
+  margin-bottom: 0.5rem;
+  line-height: 1;
+}
+
+.heroJapanese {
+  display: block;
+  color: #facc15;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  transform: rotate(-2deg);
+}
+
+.heroSubtitle {
+  margin-top: 2rem;
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #fff;
+  background: #000;
+  padding: 0.5rem 1.5rem;
+  border: 4px solid #fff;
+  transform: rotate(2deg);
+  box-shadow: 8px 8px 0px 0px rgba(255, 255, 255, 1);
+}
+
+.heroButtons {
+  margin-top: 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.heroBtnPrimary {
+  position: relative;
+  background: #ef4444;
+  border: 4px solid #000;
+  color: #fff;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  padding: 1rem 3rem;
+  border-radius: 0.75rem;
+  box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 1);
+  transition: all 200ms;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
+  font-family: "Nunito", sans-serif;
+}
+
+.heroBtnPrimary:hover {
+  transform: translate(4px, 4px);
+  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+}
+
+.heroBtnSecondary {
+  background: #fff;
+  border: 4px solid #000;
+  color: #000;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  padding: 1rem 3rem;
+  border-radius: 0.75rem;
+  box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 1);
+  transition: all 200ms;
+  cursor: pointer;
+  font-family: "Nunito", sans-serif;
+}
+
+.heroBtnSecondary:hover {
+  background: #facc15;
+  transform: translate(4px, 4px);
+  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+}
+
+.heroOkBadge {
+  position: absolute;
+  bottom: 2.5rem;
+  right: 2.5rem;
+  transform: rotate(12deg);
+  animation: pulseSize 2s ease-in-out infinite;
+}
+
+.heroOkInner {
+  background: #f97316;
+  border: 8px solid #000;
+  color: #fff;
+  font-family: "Bangers", cursive;
+  letter-spacing: 2px;
+  font-size: 3.75rem;
+  text-align: center;
+  border-radius: 9999px;
+  padding: 1rem 1.5rem;
+  box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 1);
+  width: 8rem;
+  height: 8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .heroTitle {
+    font-size: 8rem;
+  }
+  .heroJapanese {
+    font-size: 3.75rem;
+  }
+  .heroSubtitle {
+    font-size: 1.875rem;
+  }
+  .heroButtons {
+    flex-direction: row;
+  }
+  .heroBadgeNew {
+    left: -5rem;
+  }
+  .heroOkBadge {
+    right: 8rem;
+  }
+  .heroOkInner {
+    width: 12rem;
+    height: 12rem;
+    font-size: 4.5rem;
+  }
+}
+
+/* =============================================
+   MARQUEE
+   ============================================= */
+
+.marqueeWrapper {
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+  border-top: 4px solid #000;
+  border-bottom: 4px solid #000;
+  background: #facc15;
+  padding: 0.75rem 0;
+  transform: rotate(-1deg) scale(1.05);
+  margin-top: -2rem;
+  z-index: 10;
+  box-shadow: 0 8px 0 0 rgba(0, 0, 0, 1);
+}
+
+.marqueeTrack {
+  display: flex;
+  white-space: nowrap;
+  animation: marqueeScroll 40s linear infinite;
+}
+
+.marqueeContent {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin: 0 1rem;
+  font-size: 1.5rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #000;
+}
+
+/* =============================================
+   GAMEPLAY SECTION
+   ============================================= */
+
+.gameplaySection {
+  padding: 8rem 0;
+  position: relative;
+  border-bottom: 8px solid #000;
+  background-image: radial-gradient(#000 2px, transparent 2px);
+  background-size: 16px 16px;
+  background-color: #fdfbf7;
+}
+
+.sectionContainer {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.gameplayHeader {
+  text-align: center;
+  margin-bottom: 5rem;
+}
+
+.gameplayTitle {
+  font-family: "Bangers", cursive;
+  letter-spacing: 2px;
+  font-size: 3.75rem;
+  color: #000;
+  display: inline-block;
+  background: #facc15;
+  padding: 0.5rem 2rem;
+  border: 4px solid #000;
+  box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 1);
+  transform: rotate(-2deg);
+  margin-bottom: 1.5rem;
+}
+
+.gameplaySubtitle {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #000;
+  max-width: 34rem;
+  margin: 1.5rem auto 0;
+  background: #fff;
+  padding: 1.5rem;
+  border: 4px solid #000;
+  box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 1);
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+/* Comic Card */
+.comicCard {
+  position: relative;
+  padding: 2rem;
+  border: 4px solid #000;
+  border-radius: 1rem;
+  box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 1);
+  transition:
+    transform 300ms,
+    box-shadow 300ms;
+}
+
+.comicCard:hover {
+  transform: translateY(-0.5rem);
+  box-shadow: 12px 12px 0px 0px rgba(0, 0, 0, 1);
+}
+
+.comicCardRed {
+  background: #f87171;
+}
+.comicCardBlue {
+  background: #60a5fa;
+}
+.comicCardGreen {
+  background: #4ade80;
+}
+
+.comicCardTiltLeft {
+  transform: rotate(-2deg);
+}
+.comicCardTiltRight {
+  transform: rotate(2deg);
+}
+.comicCardTiltSlightLeft {
+  transform: rotate(-1deg);
+}
+
+.comicCardTiltLeft:hover {
+  transform: rotate(-2deg) translateY(-0.5rem);
+}
+.comicCardTiltRight:hover {
+  transform: rotate(2deg) translateY(-0.5rem);
+}
+.comicCardTiltSlightLeft:hover {
+  transform: rotate(-1deg) translateY(-0.5rem);
+}
+
+.comicCardIconBadge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: -1.5rem;
+  margin-right: -1.5rem;
+  background: #facc15;
+  border: 4px solid #000;
+  color: #000;
+  font-weight: 900;
+  padding: 0.75rem;
+  border-radius: 9999px;
+  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+  transform: rotate(12deg);
+  transition: transform 300ms;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.comicCard:hover .comicCardIconBadge {
+  transform: rotate(24deg);
+}
+
+.comicCardTitle {
+  font-size: 1.875rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  color: #000;
+}
+
+.comicCardDescription {
+  color: #000;
+  font-weight: 700;
+  font-size: 1.125rem;
+  line-height: 1.75;
+}
+
+@media (min-width: 768px) {
+  .cardGrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+  }
+  .gameplayTitle {
+    font-size: 5rem;
+  }
+}
+
+/* =============================================
+   CHARACTERS SECTION
+   ============================================= */
+
+.charactersSection {
+  padding: 8rem 0;
+  background: #1e3a8a;
+  color: #fff;
+  position: relative;
+  border-bottom: 8px solid #000;
+  overflow: hidden;
+}
+
+.speedLineOverlay {
+  position: absolute;
+  inset: 0;
+  opacity: 0.2;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 10px,
+    #fff 10px,
+    #fff 20px
+  );
+}
+
+.charactersGrid {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4rem;
+}
+
+.characterBio {
+  width: 100%;
+}
+
+.characterBioTitle {
+  font-family: "Bangers", cursive;
+  letter-spacing: 2px;
+  font-size: 3.75rem;
+  color: #fff;
+  text-shadow: 6px 6px 0 #000;
+  margin-bottom: 2rem;
+}
+
+.characterBioCard {
+  background: #fff;
+  color: #000;
+  padding: 2rem;
+  border: 4px solid #000;
+  box-shadow: 12px 12px 0px 0px rgba(0, 0, 0, 1);
+  transform: rotate(1deg);
+}
+
+.characterBioCardTitle {
+  font-size: 2.25rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  color: #dc2626;
+}
+
+.characterBioCardText {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.characterBioCardBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #facc15;
+  border: 2px solid #000;
+  padding: 0.75rem 1.5rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  transition:
+    background 200ms,
+    color 200ms;
+  cursor: pointer;
+  font-family: "Nunito", sans-serif;
+  font-size: 1rem;
+  color: #000;
+}
+
+.characterBioCardBtn:hover {
+  background: #000;
+  color: #fff;
+}
+
+.characterArtwork {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.characterArtworkFrame {
+  width: 100%;
+  max-width: 28rem;
+  aspect-ratio: 3 / 4;
+  background: #60a5fa;
+  border: 8px solid #000;
+  box-shadow: 16px 16px 0px 0px rgba(0, 0, 0, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(-3deg);
   position: relative;
   overflow: hidden;
 }
 
-@media screen and (max-width: 996px) {
-  .heroBanner {
-    padding: 2rem;
+.characterArtworkFrame:hover .characterArtworkHoverOverlay {
+  opacity: 0.1;
+}
+
+.characterArtworkHoverOverlay {
+  position: absolute;
+  inset: 0;
+  background: #000;
+  opacity: 0;
+  transition: opacity 300ms;
+  z-index: 10;
+}
+
+.characterArtworkPlaceholder {
+  font-family: "Bangers", cursive;
+  letter-spacing: 2px;
+  font-size: 2.25rem;
+  color: #000;
+  opacity: 0.5;
+  position: absolute;
+}
+
+.characterArtworkImg {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+@media (min-width: 768px) {
+  .charactersGrid {
+    flex-direction: row;
+  }
+  .characterBio {
+    width: 50%;
+  }
+  .characterArtwork {
+    width: 50%;
+  }
+  .characterBioTitle {
+    font-size: 5rem;
   }
 }
 
-.buttons {
+/* =============================================
+   GALLERY SECTION
+   ============================================= */
+
+.gallerySection {
+  padding: 8rem 0;
+  background: #facc15;
+  border-bottom: 8px solid #000;
+}
+
+.galleryTitle {
+  font-family: "Bangers", cursive;
+  letter-spacing: 2px;
+  font-size: 3.75rem;
+  color: #000;
+  text-align: center;
+  margin-bottom: 4rem;
+  text-shadow: 4px 4px 0 #fff;
+}
+
+.galleryGrid {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+.polaroidFrame {
+  background: #fff;
+  border: 4px solid #000;
+  padding: 0.5rem;
+  box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 1);
+  transition:
+    transform 300ms,
+    z-index 0ms;
+}
+
+.polaroidFrame:hover {
+  transform: scale(1.05) !important;
+  z-index: 10;
+}
+
+.polaroidFrameEven {
+  transform: rotate(2deg);
+}
+
+.polaroidFrameOdd {
+  transform: rotate(-2deg);
+}
+
+.polaroidImageWrapper {
+  aspect-ratio: 16 / 9;
+  background: #e5e7eb;
+  border: 2px solid #000;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.polaroidOverlay {
+  position: absolute;
+  inset: 0;
+  background: #2563eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 300ms;
+}
+
+.polaroidImageWrapper:hover .polaroidOverlay {
+  opacity: 1;
+}
+
+.polaroidOverlayText {
+  font-weight: 900;
+  color: #fff;
+  font-size: 1.25rem;
+  text-transform: uppercase;
+}
+
+.polaroidPlaceholder {
+  font-weight: 700;
+  color: #6b7280;
+}
+
+.polaroidImg {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+@media (min-width: 768px) {
+  .galleryGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .galleryTitle {
+    font-size: 5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .galleryGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* =============================================
+   PLATFORMS SECTION
+   ============================================= */
+
+.platformsSection {
+  padding: 6rem 0;
+  background: #fff;
+  border-bottom: 8px solid #000;
+}
+
+.platformsTitle {
+  font-size: 2.25rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 3rem;
+  color: #000;
+}
+
+.platformsGrid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  opacity: 0.8;
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.platformItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: transform 200ms;
+}
+
+.platformItem:hover {
+  transform: scale(1.1);
+}
+
+.platformLogo {
+  height: 80px;
+  width: auto;
+  max-width: 120px;
+  object-fit: contain;
+}
+
+.platformLabel {
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 1.25rem;
+  color: #000;
+}
+
+@media (min-width: 768px) {
+  .platformsGrid {
+    gap: 6rem;
+  }
+}
+
+/* =============================================
+   FOOTER SECTION
+   ============================================= */
+
+.footerSection {
+  background: #000;
+  color: #fff;
+  padding: 6rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.footerRayOverlay {
+  position: absolute;
+  inset: 0;
+  opacity: 0.1;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 20px,
+    #fff 20px,
+    #fff 40px
+  );
+  transform: rotate(12deg) scale(1.5);
+}
+
+.footerContent {
+  position: relative;
+  z-index: 10;
+  max-width: 56rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footerTitle {
+  font-family: "Bangers", cursive;
+  letter-spacing: 2px;
+  font-size: 3.75rem;
+  color: #facc15;
+  margin-bottom: 1.5rem;
+  transform: rotate(-2deg);
+}
+
+.footerDescription {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 3rem;
+}
+
+.footerActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 4rem;
+}
+
+.footerBlogBtn {
+  background: #2563eb;
+  border: 4px solid #fff;
+  padding: 1rem 2rem;
+  font-weight: 900;
+  font-size: 1.25rem;
+  text-transform: uppercase;
+  color: #fff;
+  transition:
+    background 200ms,
+    color 200ms,
+    border-color 200ms;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: "Nunito", sans-serif;
+}
+
+.footerBlogBtn:hover {
+  background: #facc15;
+  color: #000;
+  border-color: #000;
+}
+
+.footerSocialIcons {
+  display: flex;
+  gap: 1rem;
+}
+
+.footerSocialBtn {
+  background: #fff;
+  color: #000;
+  padding: 1rem;
+  border: 4px solid transparent;
+  transition: all 200ms;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footerSocialBtn:hover {
+  border-color: #facc15;
+  background: #000;
+  color: #fff;
+  transform: translateY(-0.5rem);
+}
+
+.footerLegal {
+  border-top: 2px solid #374151;
+  width: 100%;
+  padding-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  color: #9ca3af;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.875rem;
+  gap: 1rem;
+}
+
+.footerLegalLinks {
+  display: flex;
+  gap: 1rem;
+}
+
+.footerLegalLinks a {
+  color: #9ca3af;
+  text-decoration: none;
+  transition: color 200ms;
+}
+
+.footerLegalLinks a:hover {
+  color: #fff;
+}
+
+@media (min-width: 768px) {
+  .footerTitle {
+    font-size: 5rem;
+  }
+  .footerLegal {
+    flex-direction: row;
+  }
 }
