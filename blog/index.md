@@ -2,6 +2,7 @@
 title: Commencement du projet
 slug: index
 authors: marius
+date: 2025-09-25
 ---
 
 Première réflexion sur le jeu : [Réflexions](https://drive.beauget.fr/s/k7QddSGfKGkxbBa)
