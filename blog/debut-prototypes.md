@@ -1,7 +1,7 @@
 ---
 title: Initialisation du projet et début des prototypes
 authors: [valentin, audric, gabriel, marius]
-date: 2025-11-27
+date: 2025-10-12
 ---
 
 ## Valentin
